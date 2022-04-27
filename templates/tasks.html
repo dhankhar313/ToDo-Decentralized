@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<div class="container">
+    {% if edit%}
+    <form name="list" action="/editTask/{{title}}" method="POST"> 
+      <div>
+         <label  class="form-label"><h3>reTask</h3></label>
+         <input type="text" class="form-control" id="Ttitle" name="Tasktitle" value="{{title}}" required>
+       </div>
+
+      <br>
+      <input class="btn" type="submit" value="edit">
+    </form>
+  
+  
+      {% else %}
+      <form name="list" action="/addTask" method="POST"> 
+       <div>
+        <label  class="form-label"><h3>Task Name</h3></label>
+        <input type="text" class="form-control" id="Ttitle" name="Tasktitle" placeholder="Some Title.." required>
+      </div>
+      <br>
+      <input class="btn" type="submit" value="add">
+    </form>
+    {% endif %}
+      
+  </div>
+
+<br>
+
+<style>
+  .hiddenRow {
+    padding: 0 !important;
+}
+</style>
+<div class="container">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tasks
+                </div>
+        <div class="panel-body">
+                    <table id="myTable" class="table table-condensed table-striped">
+
+<style>
+  .btn{
+    margin: 0 !important;
+    box-shadow: 0 0 0 0 !important;
+  }
+</style>
+    <tbody>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Hash Tag search.." title="Type in a name">
+      {% for i in data %}
+        <tr>
+          <td class="col-md-2">{{i}}</td>
+           <td class="col-md-2">
+             <a class="btn btn-default btn-xs accordion-toggle"  href="/changestat/{{i}}"><span class="glyphicon glyphicon-check"></span></a>
+             <a class="btn btn-default btn-xs" style=" margin-right: 10px !important;" href="/editTask/{{i}}"><span style="color:blue;" class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default btn-xs" href="/deleteTask/{{i}}"><span style="color:red" class="glyphicon glyphicon-trash"></span></a>
+          </td>
+        </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+            </div>
+        
+          </div> 
+        
+      </div>
+    </div>
+       
+
+
+{% endblock %}
+
+
+
+<!--<div class="input-group mb-3">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+    <ul class="dropdown-menu">
+      <li><a class="All Tasks" href="#">Action</a></li>
+      <li><a class="Completed Tasks" href="#">Another action</a></li>
+      <li><a class="Incomplete Tasks" href="#">Something else here</a></li>
+    </ul><span>
+    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+    <input type="submit" name="Search" class="btn btn-primary"/>
+    </span>
+</div>-->

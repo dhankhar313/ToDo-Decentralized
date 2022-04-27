@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<div class="container">
+  {% if edit%}
+  <form name="list" action="/edit/{{title}}" method="POST"> 
+    <div>
+       <label  class="form-label"><h3>LOl</h3></label>
+       <input type="text" class="form-control" id="ltitle" name="listtitle" value="{{title}}" required>
+     </div>
+     <div>
+       <label class="form-label"><h3>okkk</h3> </label>
+       <textarea class="form-control" id="listitems" name="edititems" rows="3" required>{{items}}</textarea>
+     </div>
+    <br>
+    <input class="btn" type="submit" value="edit">
+  </form>
+
+
+    {% else %}
+    <form name="list" action="/add" method="POST"> 
+     <div>
+      <label  class="form-label"><h3>List Name</h3></label>
+      <input type="text" class="form-control" id="ltitle" name="listtitle" placeholder="Some Title.." required>
+    </div>
+    <div>
+      <label class="form-label"><h3>Items</h3> </label>
+      <textarea class="form-control" id="listitems" name="items" rows="3" placeholder="Add items" required></textarea>
+    </div>
+    <br>
+    <input class="btn" type="submit" value="add">
+  </form>
+  {% endif %}
+    
+</div>
+
+<br>
+
+<style>
+  .hiddenRow {
+    padding: 0 !important;
+}
+</style>
+<div class="container">
+	<div class="col-md-4">
+    	<div class="panel panel-default">
+				<div class="panel-heading">
+					Lists
+				</div>
+        <div class="panel-body">
+					<table id="myTable" class="table table-condensed table-striped">
+    <thead>
+        <tr>
+          <th>Title</th>
+					<th></th>
+        </tr>
+    </thead>
+<style>
+  .btn{
+    margin: 0 !important;
+    box-shadow: 0 0 0 0 !important;
+  }
+</style>
+
+<tbody>
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for title.." title="Type in a name">
+  {% for i in data %}
+    <tr>
+      <td class="col-md-2">{{i}}</td>
+       <td class="col-md-2">
+         <button class="btn btn-default btn-xs accordion-toggle" data-toggle="collapse" data-target="#demo{{i}}"><span class="glyphicon glyphicon-eye-open"></span></button>
+         <a class="btn btn-default btn-xs" style=" margin-right: 10px !important;" href="/edit/{{i}}"><span style="color:blue;" class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-default btn-xs" href="/delete/{{i}}"><span style="color:red" class="glyphicon glyphicon-trash"></span></a>
+      </td>
+    </tr>
+  
+    <tr>
+        <td class="hiddenRow col-md-2" >
+          <div class="accordian-body collapse" id="demo{{i}}" style="width: 0px;"> 
+            <table class="table table-condensed">
+              <tbody>
+                {% for item in data[i] %}
+                <tr>
+                  <td>{{ item }}</td>
+                  <td> 
+                    <a href="/deleteitem/{{i}}/{{item}}" class="btn btn-default btn-xs">
+                          <i class="glyphicon glyphicon-trash"></i>
+                      </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+          </div> 
+      </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+            </div>
+        
+          </div> 
+        
+      </div>
+	</div>
+       
+
+
+{% endblock %}
